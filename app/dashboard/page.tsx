@@ -214,9 +214,14 @@ export default function DashboardPage() {
                           </div>
                           <div className="flex-1">
                             <p className="font-medium mb-1">
-                              <Link href={`/datasets/${dataset.name}`} className="hover:text-blue-400">
-                                {dataset.title || dataset.name}
-                              </Link>
+                              <a href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
+                              target="_blank"
+                               rel="noopener noreferrer"
+                               className="hover:text-blue-400"
+                               >
+                               {dataset.title || dataset.name}
+                               </a>
+                              
                             </p>
                             <p className="text-sm text-gray-400 mb-2">
                               {dataset.notes?.substring(0, 100) || 'No description'}
