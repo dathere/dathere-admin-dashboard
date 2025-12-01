@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Database, TrendingUp } from 'lucide-react';
+import { Database, TrendingUp, Building2, Users, BarChart3 } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 
 interface DashboardStats {
   totalDatasets: number;
   publicDatasets: number;
   privateDatasets: number;
+  organizations: number;
+  groups: number;
+  stories: number;
   recentDatasets: any[];
 }
 
@@ -17,6 +20,9 @@ export default function DashboardPage() {
     totalDatasets: 0,
     publicDatasets: 0,
     privateDatasets: 0,
+    organizations: 0,
+    groups: 0,
+    stories: 0,
     recentDatasets: [],
   });
   const [loading, setLoading] = useState(true);
@@ -46,10 +52,50 @@ export default function DashboardPage() {
         const publicCount = datasets.filter(d => !d.private).length;
         const privateCount = datasets.filter(d => d.private).length;
 
+        // Fetch organizations count
+        let organizationsCount = 0;
+        try {
+          const orgsResponse = await fetch('/api/ckan/organization_list');
+          const orgsData = await orgsResponse.json();
+          if (orgsData.success) {
+            organizationsCount = orgsData.result.length;
+          }
+        } catch (error) {
+          console.error('Failed to fetch organizations:', error);
+        }
+
+        // Fetch groups count
+        let groupsCount = 0;
+        try {
+          const groupsResponse = await fetch('/api/ckan/group_list');
+          const groupsData = await groupsResponse.json();
+          if (groupsData.success) {
+            groupsCount = groupsData.result.length;
+          }
+        } catch (error) {
+          console.error('Failed to fetch groups:', error);
+        }
+
+        // Fetch stories count
+        let storiesCount = 0;
+        try {
+          const storiesResponse = await fetch('/api/stories/list');
+          const storiesData = await storiesResponse.json();
+          if (storiesData.success) {
+            storiesCount = storiesData.result.length;
+          }
+        }catch (error) {
+          console.error('Failed to fetch stories:', error);
+        }
+          
+
         setStats({
           totalDatasets: datasetNames.length,
           publicDatasets: publicCount,
           privateDatasets: privateCount,
+          organizations: organizationsCount,
+          groups: groupsCount,
+          stories: storiesCount,
           recentDatasets: datasets.slice(0, 5),
         });
       }
@@ -89,36 +135,91 @@ export default function DashboardPage() {
               </div>
 
               {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Total Datasets */}
-                <div className="bg-gray-800 rounded-lg p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-blue-500/10 p-3 rounded-lg">
-                      <Database className="w-6 h-6 text-blue-500" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Total Datasets</p>
-                      <p className="text-3xl font-bold">
-                        {loading ? '...' : stats.totalDatasets}
-                      </p>
+                <Link href="/datasets" className="block">
+                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-blue-500/10 p-3 rounded-lg">
+                        <Database className="w-6 h-6 text-blue-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Total Datasets</p>
+                        <p className="text-3xl font-bold">
+                          {loading ? '...' : stats.totalDatasets}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Public Datasets */}
-                <div className="bg-gray-800 rounded-lg p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-green-500/10 p-3 rounded-lg">
-                      <TrendingUp className="w-6 h-6 text-green-500" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Public Datasets</p>
-                      <p className="text-3xl font-bold">
-                        {loading ? '...' : stats.publicDatasets}
-                      </p>
+                <Link href="/datasets" className="block">
+                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-green-500/10 p-3 rounded-lg">
+                        <TrendingUp className="w-6 h-6 text-green-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Public Datasets</p>
+                        <p className="text-3xl font-bold">
+                          {loading ? '...' : stats.publicDatasets}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
+
+                {/* Organizations */}
+                <Link href="/organizations" className="block">
+                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-purple-500/10 p-3 rounded-lg">
+                        <Building2 className="w-6 h-6 text-purple-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Organizations</p>
+                        <p className="text-3xl font-bold">
+                          {loading ? '...' : stats.organizations}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Groups */}
+                <Link href="/groups" className="block">
+                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-cyan-500/10 p-3 rounded-lg">
+                        <Users className="w-6 h-6 text-cyan-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Groups</p>
+                        <p className="text-3xl font-bold">
+                          {loading ? '...' : stats.groups}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Stories/Visualizations */}
+                <Link href="/stories" className="block">
+                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-yellow-500/10 p-3 rounded-lg">
+                        <BarChart3 className="w-6 h-6 text-yellow-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Stories/Visualizations</p>
+                        <p className="text-3xl font-bold">
+                          {loading ? '...' : stats.stories}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </div>
 
               {/* Quick Actions */}
@@ -175,7 +276,7 @@ export default function DashboardPage() {
                   </Link>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg p-6">
+                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-blue-500/10 p-3 rounded-lg">
                       <Database className="w-6 h-6 text-blue-500" />

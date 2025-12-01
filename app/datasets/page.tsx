@@ -305,7 +305,9 @@ export default function DatasetsPage() {
                                 Edit
                               </Link>
                               <Link
-                                href={`/datasets/${dataset.name}/resources`}
+                                href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 text-sm"
                               >
                                 <Database className="w-4 h-4" />
