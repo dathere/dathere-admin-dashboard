@@ -1,11 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Save, Eye, Code } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 import ReactMarkdown from 'react-markdown';
+import { evaluate } from '@mdx-js/mdx';
+import * as runtime from 'react/jsx-runtime';
+
+// Import all chart components for preview (they're all exported from the charts index)
+import dynamic from 'next/dynamic';
+
+const GenericBarChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.GenericBarChart })), { ssr: false });
+const GenericLineChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.GenericLineChart })), { ssr: false });
+const GenericPie = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.GenericPie })), { ssr: false });
+const GenericAreaChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.GenericAreaChart })), { ssr: false });
+const MultiLineChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.MultiLineChart })), { ssr: false });
+const StackedBarChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.StackedBarChart })), { ssr: false });
+const ComboChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.ComboChart })), { ssr: false });
+const ScatterPlot = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.ScatterPlot })), { ssr: false });
+const RadarChartComponent = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.RadarChartComponent })), { ssr: false });
+const HorizontalBarChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.HorizontalBarChart })), { ssr: false });
+const FunnelChartComponent = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.FunnelChartComponent })), { ssr: false });
+const TreemapChart = dynamic(() => import('@/components/charts').then(mod => ({ default: mod.TreemapChart })), { ssr: false });
 
 interface ChartTemplate {
   name: string;
@@ -224,6 +242,95 @@ export default function CreateStory() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'write' | 'preview'>('write');
+  
+  // MDX preview state
+  const [MdxContent, setMdxContent] = useState<any>(null);
+  const [previewError, setPreviewError] = useState<string | null>(null);
+  const [isCompiling, setIsCompiling] = useState(false);
+
+  // Ref for the content textarea
+  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Helper function to insert markdown at cursor with proper undo support
+  const insertMarkdown = (before: string, after: string = '', placeholder: string = '') => {
+    const textarea = contentTextareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end) || placeholder;
+    const insertText = before + selectedText + after;
+
+    // Focus the textarea first
+    textarea.focus();
+
+    // Use execCommand for proper undo support
+    if (document.queryCommandSupported('insertText')) {
+      // Delete selected text first if any
+      if (start !== end) {
+        textarea.setSelectionRange(start, end);
+        document.execCommand('delete', false);
+      }
+      // Insert the new text
+      document.execCommand('insertText', false, insertText);
+    } else {
+      // Fallback for browsers that don't support execCommand
+      const newText = content.substring(0, start) + insertText + content.substring(end);
+      setContent(newText);
+      
+      setTimeout(() => {
+        textarea.focus();
+        const newCursorPos = start + insertText.length;
+        textarea.setSelectionRange(newCursorPos, newCursorPos);
+      }, 0);
+    }
+  };
+
+  // Handle Enter key for auto-continuing lists
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      const textarea = contentTextareaRef.current;
+      if (!textarea) return;
+
+      const cursorPos = textarea.selectionStart;
+      const textBeforeCursor = content.substring(0, cursorPos);
+      const lines = textBeforeCursor.split('\n');
+      const currentLine = lines[lines.length - 1];
+
+      // Check for numbered list (e.g., "1. ", "2. ", etc.)
+      const numberedMatch = currentLine.match(/^(\s*)(\d+)\.\s/);
+      if (numberedMatch) {
+        e.preventDefault();
+        const indent = numberedMatch[1];
+        const currentNum = parseInt(numberedMatch[2]);
+        const nextNum = currentNum + 1;
+        const newText = content.substring(0, cursorPos) + `\n${indent}${nextNum}. ` + content.substring(cursorPos);
+        setContent(newText);
+        
+        setTimeout(() => {
+          const newPos = cursorPos + indent.length + nextNum.toString().length + 4; // +4 for "\n" + ". "
+          textarea.setSelectionRange(newPos, newPos);
+        }, 0);
+        return;
+      }
+
+      // Check for bullet list (e.g., "- ", "* ")
+      const bulletMatch = currentLine.match(/^(\s*)([-*])\s/);
+      if (bulletMatch) {
+        e.preventDefault();
+        const indent = bulletMatch[1];
+        const bullet = bulletMatch[2];
+        const newText = content.substring(0, cursorPos) + `\n${indent}${bullet} ` + content.substring(cursorPos);
+        setContent(newText);
+        
+        setTimeout(() => {
+          const newPos = cursorPos + indent.length + 4; // +4 for "\n" + bullet + " "
+          textarea.setSelectionRange(newPos, newPos);
+        }, 0);
+        return;
+      }
+    }
+  };
 
   useEffect(() => {
     if (title) {
@@ -236,6 +343,94 @@ export default function CreateStory() {
       setSlug(generatedSlug);
     }
   }, [title]);
+
+  // Compile MDX when switching to preview tab
+  useEffect(() => {
+    if (activeTab === 'preview') {
+      compileMDX();
+    }
+  }, [activeTab, content]);
+
+  const compileMDX = async () => {
+    setIsCompiling(true);
+    setPreviewError(null);
+    
+    try {
+      // Wait a tick to ensure dynamic imports are loaded
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Evaluate MDX with all chart components available
+      const { default: MDXContent } = await evaluate(content, {
+        ...runtime,
+        development: false,
+      });
+      
+      // Wrap the MDX content to provide components
+      const WrappedContent = () => (
+        <MDXContent 
+          components={{
+            // Chart components
+            GenericBarChart,
+            GenericLineChart,
+            GenericPie,
+            GenericAreaChart,
+            MultiLineChart,
+            StackedBarChart,
+            ComboChart,
+            ScatterPlot,
+            RadarChartComponent,
+            HorizontalBarChart,
+            FunnelChartComponent,
+            TreemapChart,
+            // Markdown elements with styling
+            h1: (props: any) => <h1 className="text-4xl font-bold mb-4 mt-6" {...props} />,
+            h2: (props: any) => <h2 className="text-3xl font-bold mb-3 mt-5" {...props} />,
+            h3: (props: any) => <h3 className="text-2xl font-bold mb-2 mt-4" {...props} />,
+            h4: (props: any) => <h4 className="text-xl font-bold mb-2 mt-3" {...props} />,
+            h5: (props: any) => <h5 className="text-lg font-bold mb-1 mt-2" {...props} />,
+            h6: (props: any) => <h6 className="text-base font-bold mb-1 mt-2" {...props} />,
+            p: (props: any) => <p className="mb-4 text-gray-200" {...props} />,
+            ul: (props: any) => <ul className="list-disc ml-6 mb-4" {...props} />,
+            ol: (props: any) => <ol className="list-decimal ml-6 mb-4" {...props} />,
+            li: (props: any) => <li className="mb-1" {...props} />,
+            a: (props: any) => <a className="text-blue-400 hover:text-blue-300 underline" {...props} />,
+            strong: (props: any) => <strong className="font-bold" {...props} />,
+            em: (props: any) => <em className="italic" {...props} />,
+            blockquote: (props: any) => <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4" {...props} />,
+            pre: (props: any) => (
+              <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4 border border-gray-700" {...props} />
+            ),
+            code: (props: any) => {
+              const { className, children, inline } = props;
+              
+              // If it's inline code (has inline prop or no className)
+              if (inline) {
+                return <code className="bg-gray-600 px-1.5 py-0.5 rounded text-sm font-mono text-gray-100" {...props} />;
+              }
+              
+              // If it's a code block (inside pre tag)
+              return <code className="text-sm font-mono text-gray-100" {...props}>{children}</code>;
+            },
+            hr: (props: any) => <hr className="my-6 border-gray-600" {...props} />,
+            table: (props: any) => <table className="min-w-full border-collapse mb-4" {...props} />,
+            thead: (props: any) => <thead className="bg-gray-700" {...props} />,
+            tbody: (props: any) => <tbody className="bg-gray-800" {...props} />,
+            tr: (props: any) => <tr className="border-b border-gray-600" {...props} />,
+            th: (props: any) => <th className="px-4 py-2 text-left font-bold" {...props} />,
+            td: (props: any) => <td className="px-4 py-2" {...props} />,
+          }}
+        />
+      );
+      
+      setMdxContent(() => WrappedContent);
+    } catch (err: any) {
+      console.error('MDX compilation error:', err);
+      setPreviewError(err.message || 'Failed to compile MDX');
+      setMdxContent(null);
+    } finally {
+      setIsCompiling(false);
+    }
+  };
 
   const insertTemplate = (template: ChartTemplate) => {
     setContent(content + '\n\n' + template.code.trim() + '\n\n');
@@ -440,42 +635,127 @@ export default function CreateStory() {
                   <div className="p-6">
                     {activeTab === 'write' ? (
                       <>
+                        {/* Formatting Toolbar */}
+                        <div className="flex flex-wrap gap-2 mb-3 p-2 bg-gray-700 rounded-lg border border-gray-600">
+                          <button
+                            onClick={() => insertMarkdown('**', '**', 'bold text')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm font-bold"
+                            title="Bold"
+                            type="button"
+                          >
+                            B
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('*', '*', 'italic text')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm italic"
+                            title="Italic"
+                            type="button"
+                          >
+                            I
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('# ', '', 'Heading')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Heading 1"
+                            type="button"
+                          >
+                            H1
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('## ', '', 'Heading')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Heading 2"
+                            type="button"
+                          >
+                            H2
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('### ', '', 'Heading')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Heading 3"
+                            type="button"
+                          >
+                            H3
+                          </button>
+                          <div className="w-px h-6 bg-gray-600"></div>
+                          <button
+                            onClick={() => insertMarkdown('\n- ', '', 'List item')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Bullet List"
+                            type="button"
+                          >
+                            • List
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('\n1. ', '', 'Numbered item')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Numbered List"
+                            type="button"
+                          >
+                            1. List
+                          </button>
+                          <div className="w-px h-6 bg-gray-600"></div>
+                          <button
+                            onClick={() => insertMarkdown('[', '](url)', 'link text')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Link"
+                            type="button"
+                          >
+                            🔗 Link
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('`', '`', 'code')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm font-mono"
+                            title="Inline Code"
+                            type="button"
+                          >
+                            {'</>'}
+                          </button>
+                          <button
+                            onClick={() => insertMarkdown('\n```\n', '\n```\n', 'code block')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Code Block"
+                            type="button"
+                          >
+                            Code Block
+                          </button>
+                        </div>
+
                         <textarea
+                          ref={contentTextareaRef}
                           value={content}
                           onChange={(e) => setContent(e.target.value)}
+                          onKeyDown={handleKeyDown}
                           rows={20}
                           className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white font-mono text-sm"
                           placeholder="Write your story content using Markdown..."
                         />
                         <p className="text-xs text-gray-400 mt-2">
-                          Use Markdown syntax: # for headings, **bold**, *italic*, - for lists, etc.
+                          Use the toolbar above or Markdown syntax directly. Select text and click a button to format it.
                         </p>
                       </>
                     ) : (
                       <div className="prose prose-invert max-w-none min-h-[500px] p-4 bg-gray-700 rounded-lg">
-                        <div className="text-sm text-gray-400 mb-4">
-                          ℹ️ Preview shows basic Markdown. Charts will render on the live portal.
-                        </div>
-                        <ReactMarkdown 
-                          components={{
-                            code: ({ node, inline, ...props }) => (
-                              inline ? 
-                                <code className="bg-gray-600 px-1 rounded" {...props} /> :
-                                <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto">
-                                  <code {...props} />
-                                </pre>
-                            )
-                          }}
-                        >
-                          {content}
-                        </ReactMarkdown>
+                        {isCompiling ? (
+                          <div className="flex items-center justify-center py-12">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                            <span className="ml-3 text-gray-400">Compiling preview...</span>
+                          </div>
+                        ) : previewError ? (
+                          <div className="bg-red-900/20 border border-red-800 rounded-lg p-4">
+                            <h3 className="text-red-200 font-medium mb-2">Preview Error</h3>
+                            <pre className="text-red-300 text-sm whitespace-pre-wrap">{previewError}</pre>
+                          </div>
+                        ) : MdxContent ? (
+                          <div className="mdx-preview">
+                            <MdxContent />
+                          </div>
+                        ) : (
+                          <div className="text-gray-400 text-center py-12">
+                            Switch to preview to see your content rendered
+                          </div>
+                        )}
                       </div>
-
-
-                      // <div className="prose prose-invert max-w-none min-h-[500px] p-4 bg-gray-700 rounded-lg">
-
-                      //   <ReactMarkdown>{content}</ReactMarkdown>
-                      // </div>
                     )}
                   </div>
                 </div>
@@ -516,7 +796,7 @@ export default function CreateStory() {
                     Click to insert chart templates
                   </p>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-3 max-h-[600px] overflow-y-auto">
                     {chartTemplates.map((template, idx) => (
                       <button
                         key={idx}
