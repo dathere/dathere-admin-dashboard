@@ -441,6 +441,13 @@ export default function CreateStory() {
             ol: (props: any) => <ol className="list-decimal ml-6 mb-4" {...props} />,
             li: (props: any) => <li className="mb-1" {...props} />,
             a: (props: any) => <a className="text-blue-400 hover:text-blue-300 underline" {...props} />,
+            img: (props: any) => (
+              <img 
+                className="max-w-full h-auto rounded-lg my-4" 
+                loading="lazy"
+                {...props} 
+              />
+            ),
             strong: (props: any) => <strong className="font-bold" {...props} />,
             em: (props: any) => <em className="italic" {...props} />,
             blockquote: (props: any) => <blockquote className="border-l-4 border-gray-500 pl-4 italic my-4" {...props} />,
@@ -750,6 +757,15 @@ export default function CreateStory() {
                           >
                             🔗 Link
                           </button>
+                          <button
+                            onClick={() => insertMarkdown('![', '](image-url)', 'alt text')}
+                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            title="Insert Image"
+                            type="button"
+                          >
+                            🖼️ Image
+                          </button>
+                          <div className="w-px h-6 bg-gray-600"></div>
                           <button
                             onClick={() => insertMarkdown('`', '`', 'code')}
                             className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm font-mono"

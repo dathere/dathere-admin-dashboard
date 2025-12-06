@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { LogOut, User as UserIcon } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -12,8 +14,43 @@ const navigation = [
   { name: 'Users', href: '/users' },
 ];
 
+interface User {
+  name: string;
+  fullname: string;
+  email: string;
+  sysadmin: boolean;
+}
+
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch('/api/auth/me');
+      const data = await response.json();
+      if (data.success) {
+        setUser(data.user);
+      }
+    } catch (err) {
+      console.error('Failed to fetch user:', err);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/login');
+      router.refresh();
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
@@ -53,6 +90,52 @@ export default function Sidebar() {
                 })}
               </ul>
             </li>
+
+            {/* User Info & Logout - Only show if logged in */}
+            {user ? (
+              <li className="mt-auto -mx-2">
+                <div className="border-t border-gray-200 dark:border-gray-800 pt-4 pb-2">
+                  {/* User Info */}
+                  <Link href="/profile" className="px-2 py-2 mb-2 block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer">
+                        <UserIcon className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                          {user.fullname}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {user.sysadmin ? 'Administrator' : 'Member'}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Logout Button */}
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    Logout
+                  </button>
+                </div>
+              </li>
+            ) : (
+              /* Login Button - Show if not logged in */
+              <li className="mt-auto -mx-2">
+                <div className="border-t border-gray-200 dark:border-gray-800 pt-4 pb-2">
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <UserIcon className="w-5 h-5" />
+                    Login
+                  </Link>
+                </div>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
