@@ -430,13 +430,13 @@ export default function CreateStory() {
               </div>
             ),
             // Markdown elements with styling
-            h1: (props: any) => <h1 className="text-4xl font-bold mb-4 mt-6" {...props} />,
-            h2: (props: any) => <h2 className="text-3xl font-bold mb-3 mt-5" {...props} />,
-            h3: (props: any) => <h3 className="text-2xl font-bold mb-2 mt-4" {...props} />,
-            h4: (props: any) => <h4 className="text-xl font-bold mb-2 mt-3" {...props} />,
-            h5: (props: any) => <h5 className="text-lg font-bold mb-1 mt-2" {...props} />,
-            h6: (props: any) => <h6 className="text-base font-bold mb-1 mt-2" {...props} />,
-            p: (props: any) => <p className="mb-4 text-gray-200" {...props} />,
+            h1: (props: any) => <h1 className="text-4xl font-bold mb-4 mt-6 text-gray-900 dark:text-white" {...props} />,
+            h2: (props: any) => <h2 className="text-3xl font-bold mb-3 mt-5 text-gray-900 dark:text-white" {...props} />,
+             h3: (props: any) => <h3 className="text-2xl font-bold mb-2 mt-4 text-gray-900 dark:text-white" {...props} />,
+            h4: (props: any) => <h4 className="text-xl font-bold mb-2 mt-3 text-gray-900 dark:text-white" {...props} />,
+            h5: (props: any) => <h5 className="text-lg font-bold mb-1 mt-2 text-gray-900 dark:text-white" {...props} />,
+            h6: (props: any) => <h6 className="text-base font-bold mb-1 mt-2 text-gray-900 dark:text-white" {...props} />,
+            p: (props: any) => <p className="mb-4 text-gray-800 dark:text-gray-200" {...props} />,
             ul: (props: any) => <ul className="list-disc ml-6 mb-4" {...props} />,
             ol: (props: any) => <ol className="list-decimal ml-6 mb-4" {...props} />,
             li: (props: any) => <li className="mb-1" {...props} />,
@@ -550,7 +550,7 @@ export default function CreateStory() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
       
       <div className="lg:pl-72">
@@ -559,14 +559,14 @@ export default function CreateStory() {
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Create New Story</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Create New Story</h1>
+                <p className="text-gray-600 dark:text-gray-400">
                   Write engaging data stories with interactive visualizations
                 </p>
               </div>
               <Link
                 href="/stories"
-                className="text-gray-400 hover:text-gray-100 flex items-center gap-2"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Stories
@@ -583,12 +583,12 @@ export default function CreateStory() {
               {/* Main Content */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Story Details */}
-                <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                  <h2 className="text-xl font-bold mb-4">Story Details</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                  <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Story Details</h2>
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                         Title *
                       </label>
                       <input
@@ -596,12 +596,12 @@ export default function CreateStory() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Enter story title"
-                        className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                         URL Slug *
                       </label>
                       <input
@@ -609,7 +609,7 @@ export default function CreateStory() {
                         value={slug}
                         onChange={(e) => setSlug(e.target.value)}
                         placeholder="story-url-slug"
-                        className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white font-mono text-sm"
+                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white font-mono text-sm"
                       />
                       <p className="mt-1 text-xs text-gray-400">
                         Will be used in URL: /stories/{slug || 'your-slug'}
@@ -617,7 +617,7 @@ export default function CreateStory() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                         Author *
                       </label>
                       <input
@@ -625,12 +625,12 @@ export default function CreateStory() {
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                         placeholder="Your name"
-                        className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                         Description
                       </label>
                       <textarea
@@ -638,12 +638,12 @@ export default function CreateStory() {
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Brief description of your story"
                         rows={3}
-                        className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                         Tags (comma-separated)
                       </label>
                       <input
@@ -651,14 +651,14 @@ export default function CreateStory() {
                         value={tags}
                         onChange={(e) => setTags(e.target.value)}
                         placeholder="data, analysis, visualization"
-                        className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Story Content with Tabs */}
-                <div className="bg-gray-800 rounded-lg border border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                   <div className="border-b border-gray-700 px-6 pt-6">
                     <div className="flex gap-2 mb-0">
                       <button
@@ -690,10 +690,10 @@ export default function CreateStory() {
                     {activeTab === 'write' ? (
                       <>
                         {/* Formatting Toolbar */}
-                        <div className="flex flex-wrap gap-2 mb-3 p-2 bg-gray-700 rounded-lg border border-gray-600">
+                        <div className="flex flex-wrap gap-2 mb-3 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600">
                           <button
                             onClick={() => insertMarkdown('**', '**', 'bold text')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm font-bold"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm font-bold"
                             title="Bold"
                             type="button"
                           >
@@ -701,7 +701,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('*', '*', 'italic text')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm italic"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm italic"
                             title="Italic"
                             type="button"
                           >
@@ -709,7 +709,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('# ', '', 'Heading')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Heading 1"
                             type="button"
                           >
@@ -717,7 +717,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('## ', '', 'Heading')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Heading 2"
                             type="button"
                           >
@@ -725,7 +725,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('### ', '', 'Heading')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Heading 3"
                             type="button"
                           >
@@ -734,7 +734,7 @@ export default function CreateStory() {
                           <div className="w-px h-6 bg-gray-600"></div>
                           <button
                             onClick={() => insertMarkdown('\n- ', '', 'List item')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Bullet List"
                             type="button"
                           >
@@ -742,7 +742,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('\n1. ', '', 'Numbered item')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Numbered List"
                             type="button"
                           >
@@ -751,7 +751,7 @@ export default function CreateStory() {
                           <div className="w-px h-6 bg-gray-600"></div>
                           <button
                             onClick={() => insertMarkdown('[', '](url)', 'link text')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Link"
                             type="button"
                           >
@@ -759,7 +759,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('![', '](image-url)', 'alt text')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Insert Image"
                             type="button"
                           >
@@ -768,7 +768,7 @@ export default function CreateStory() {
                           <div className="w-px h-6 bg-gray-600"></div>
                           <button
                             onClick={() => insertMarkdown('`', '`', 'code')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm font-mono"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm font-mono"
                             title="Inline Code"
                             type="button"
                           >
@@ -776,7 +776,7 @@ export default function CreateStory() {
                           </button>
                           <button
                             onClick={() => insertMarkdown('\n```\n', '\n```\n', 'code block')}
-                            className="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm"
+                            className="px-3 py-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-white rounded text-sm"
                             title="Code Block"
                             type="button"
                           >
@@ -799,7 +799,7 @@ export default function CreateStory() {
                           onChange={(e) => setContent(e.target.value)}
                           onKeyDown={handleKeyDown}
                           rows={20}
-                          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-white font-mono text-sm"
+                          className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white font-mono text-sm"
                           placeholder="Write your story content using Markdown..."
                         />
                         <p className="text-xs text-gray-400 mt-2">
@@ -807,7 +807,7 @@ export default function CreateStory() {
                         </p>
                       </>
                     ) : (
-                      <div className="prose prose-invert max-w-none min-h-[500px] p-4 bg-gray-700 rounded-lg">
+                      <div className="prose dark:prose-invert max-w-none min-h-[500px] p-4 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                         {isCompiling ? (
                           <div className="flex items-center justify-center py-12">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
@@ -862,9 +862,9 @@ export default function CreateStory() {
 
               {/* Sidebar */}
               <div className="space-y-6">
-                <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 sticky top-4">
-                  <h2 className="text-lg font-bold mb-4">📊 Insert Chart</h2>
-                  <p className="text-sm text-gray-400 mb-4">
+                <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 sticky top-4">
+                  <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">📊 Insert Chart</h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                     Click to insert chart templates
                   </p>
                   
@@ -873,12 +873,12 @@ export default function CreateStory() {
                       <button
                         key={idx}
                         onClick={() => insertTemplate(template)}
-                        className="w-full text-left p-3 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors"
+                        className="w-full text-left p-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-900 dark:text-white"
                       >
-                        <div className="font-medium mb-1">
+                         <div className="font-medium mb-1 text-gray-900 dark:text-white">
                           {template.name}
                         </div>
-                        <div className="text-xs text-gray-400">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">
                           {template.description}
                         </div>
                       </button>

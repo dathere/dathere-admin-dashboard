@@ -80,7 +80,7 @@ export default function UsersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
 
       <div className="lg:pl-72">
@@ -89,8 +89,8 @@ export default function UsersPage() {
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-bold">Users</h1>
-                <p className="text-gray-400 mt-2">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Users</h1>
+                <p className="text-gray-600 dark:text-gray-400 mt-2">
                   Manage user accounts and permissions
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default function UsersPage() {
                 placeholder="Search users by name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -125,91 +125,91 @@ export default function UsersPage() {
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                <span className="ml-3 text-gray-400">Loading users...</span>
+                <span className="ml-3 text-gray-600 dark:text-gray-400">Loading users...</span>
               </div>
             ) : (
               /* Users Table */
-              <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-700">
-                    <thead className="bg-gray-900">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-900">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           User
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Email
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Role
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Datasets
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Created
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Status
                         </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-700">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                       {filteredUsers.length === 0 ? (
                         <tr>
-                          <td colSpan={7} className="px-6 py-8 text-center text-gray-400">
+                          <td colSpan={7} className="px-6 py-8 text-center text-gray-600 dark:text-gray-400">
                             {searchQuery ? 'No users found matching your search' : 'No users found'}
                           </td>
                         </tr>
                       ) : (
                         filteredUsers.map((user) => (
-                          <tr key={user.id} className="hover:bg-gray-700/50">
+                          <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center gap-3">
-                                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center">
+                                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                                   {user.sysadmin ? (
                                     <Shield className="w-5 h-5 text-yellow-400" />
                                   ) : (
-                                    <UserIcon className="w-5 h-5 text-gray-400" />
+                                    <UserIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                                   )}
                                 </div>
                                 <div>
-                                  <div className="text-sm font-medium text-white">
+                                  <div className="text-sm font-medium text-gray-900 dark:text-white">
                                     {user.fullname || user.name}
                                   </div>
-                                  <div className="text-sm text-gray-400">@{user.name}</div>
+                                  <div className="text-sm text-gray-600 dark:text-gray-400">@{user.name}</div>
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
                               {user.email}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {user.sysadmin ? (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-900/30 text-yellow-300 border border-yellow-800">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-800">
                                   Admin
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900/30 text-blue-300 border border-blue-800">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800">
                                   Member
                                 </span>
                               )}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
                               {user.number_created_packages}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                               {new Date(user.created).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span
                                 className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                   user.state === 'active'
-                                    ? 'bg-green-900/30 text-green-300 border border-green-800'
-                                    : 'bg-red-900/30 text-red-300 border border-red-800'
+                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-800'
+                                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-800'
                                 }`}
                               >
                                 {user.state}
@@ -219,14 +219,14 @@ export default function UsersPage() {
                               <div className="flex justify-end gap-2">
                                 <Link
                                   href={`/users/${user.name}/edit`}
-                                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                                   title="Edit user"
                                 >
                                   <Edit className="w-5 h-5" />
                                 </Link>
                                 <button
                                   onClick={() => handleDelete(user.name)}
-                                  className="text-red-400 hover:text-red-300 transition-colors"
+                                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                                   title="Delete user"
                                 >
                                   <Trash2 className="w-5 h-5" />
@@ -244,19 +244,19 @@ export default function UsersPage() {
 
             {/* Stats */}
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-                <p className="text-sm text-gray-400">Total Users</p>
-                <p className="text-2xl font-bold text-white">{users.length}</p>
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Total Users</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{users.length}</p>
               </div>
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-                <p className="text-sm text-gray-400">Admins</p>
-                <p className="text-2xl font-bold text-white">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Admins</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {users.filter((u) => u.sysadmin).length}
                 </p>
               </div>
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-4">
-                <p className="text-sm text-gray-400">Active Users</p>
-                <p className="text-2xl font-bold text-white">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Active Users</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
                   {users.filter((u) => u.state === 'active').length}
                 </p>
               </div>

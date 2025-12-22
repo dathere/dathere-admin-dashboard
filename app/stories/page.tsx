@@ -71,7 +71,7 @@ export default function StoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
       
       <div className="lg:pl-72">
@@ -80,8 +80,8 @@ export default function StoriesPage() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Stories & Visualizations</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Stories & Visualizations</h1>
+                <p className="text-gray-600 dark:text-gray-400">
                   Create and manage interactive data stories for your portal
                 </p>
               </div>
@@ -103,16 +103,16 @@ export default function StoriesPage() {
 
             {/* Loading State */}
             {loading ? (
-              <div className="bg-gray-800 rounded-lg p-12 text-center">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-12 text-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-400">Loading stories...</p>
+                <p className="text-gray-600 dark:text-gray-400">Loading stories...</p>
               </div>
             ) : stories.length === 0 ? (
               /* Empty State */
-              <div className="bg-gray-800 rounded-lg p-12 text-center border border-gray-700">
-                <BarChart3 className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">No stories yet</h3>
-                <p className="text-gray-400 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-12 text-center border border-gray-200 dark:border-gray-700">
+                <BarChart3 className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">No stories yet</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   Create your first data story to showcase insights and visualizations
                 </p>
                 <Link
@@ -129,21 +129,21 @@ export default function StoriesPage() {
                 {stories.map((story) => (
                   <div
                     key={story.slug}
-                    className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden hover:border-gray-600 transition-colors"
+                    className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
                   >
                     <div className="p-6">
                       {/* Story Title */}
-                      <h3 className="text-xl font-bold mb-2 line-clamp-2">
+                      <h3 className="text-xl font-bold mb-2 line-clamp-2 text-gray-900 dark:text-white">
                         {story.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-sm text-gray-400 mb-4 line-clamp-3">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
                         {story.description || 'No description'}
                       </p>
 
                       {/* Metadata */}
-                      <div className="space-y-2 mb-4 text-xs text-gray-500">
+                      <div className="space-y-2 mb-4 text-xs text-gray-500 dark:text-gray-500">
                         {story.author && (
                           <div className="flex items-center gap-2">
                             <User className="w-4 h-4" />
@@ -163,7 +163,7 @@ export default function StoriesPage() {
                               {story.tags.map((tag, idx) => (
                                 <span
                                   key={idx}
-                                  className="bg-gray-700 px-2 py-0.5 rounded text-xs"
+                                  className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded text-xs"
                                 >
                                   {tag}
                                 </span>
@@ -179,7 +179,7 @@ export default function StoriesPage() {
                           href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/stories/${story.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                          className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
                         >
                           <Eye className="w-4 h-4" />
                           View
@@ -194,7 +194,7 @@ export default function StoriesPage() {
                         <button
                           onClick={() => handleDelete(story.slug, story.title)}
                           disabled={deletingSlug === story.slug}
-                          className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center"
+                          className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 dark:disabled:bg-gray-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center"
                         >
                           {deletingSlug === story.slug ? (
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>

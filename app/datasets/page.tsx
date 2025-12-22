@@ -141,7 +141,7 @@ export default function DatasetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
 
       <div className="lg:pl-72">
@@ -149,8 +149,8 @@ export default function DatasetsPage() {
           <div className="mx-auto max-w-7xl">
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-2">Datasets</h1>
-              <p className="text-gray-400">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Datasets</h1>
+              <p className="text-gray-600 dark:text-gray-400">
                 A list of all the datasets in your portal including their name, title, description and image.
               </p>
             </div>
@@ -167,26 +167,26 @@ export default function DatasetsPage() {
             <div className="space-y-4 mb-6">
               {/* Search */}
               <div>
-                <label className="block text-sm font-medium mb-2">Search datasets</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Search datasets</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-400 w-5 h-5" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search text"
-                    className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white placeholder-gray-400"
                   />
                 </div>
               </div>
 
               {/* Organization Filter */}
               <div>
-                <label className="block text-sm font-medium mb-2">Organizations</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Organizations</label>
                 <select
                   value={selectedOrg}
                   onChange={(e) => setSelectedOrg(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white"
                 >
                   <option value="">Select...</option>
                   {organizations.map((org) => (
@@ -200,42 +200,42 @@ export default function DatasetsPage() {
 
             {/* Table */}
             {loading ? (
-              <div className="text-center py-12 text-gray-400">Loading datasets...</div>
+              <div className="text-center py-12 text-gray-600 dark:text-gray-400">Loading datasets...</div>
             ) : filteredDatasets.length === 0 ? (
-              <div className="text-center py-12 text-gray-400">
+              <div className="text-center py-12 text-gray-600 dark:text-gray-400">
                 No datasets found. Create your first dataset!
               </div>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto bg-white dark:bg-transparent border border-gray-200 dark:border-gray-800 rounded-lg">
                 <table className="w-full">
-                  <thead className="border-b border-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                     <tr>
                       <th className="text-left py-3 px-4">
                         <input
                           type="checkbox"
                           checked={selectedDatasets.length === filteredDatasets.length}
                           onChange={toggleSelectAll}
-                          className="rounded border-gray-600"
+                          className="rounded border-gray-300 dark:border-gray-600"
                         />
                       </th>
-                      <th className="text-left py-3 px-4 font-medium">Title</th>
-                      <th className="text-left py-3 px-4 font-medium">Name</th>
-                      <th className="text-left py-3 px-4 font-medium">Description</th>
-                      <th className="text-left py-3 px-4 font-medium">Visibility</th>
-                      <th className="text-left py-3 px-4 font-medium">Resources</th>
-                      <th className="text-left py-3 px-4 font-medium">Published</th>
-                      <th className="text-left py-3 px-4 font-medium">Actions</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Title</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Name</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Description</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Visibility</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Resources</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Published</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="bg-white dark:bg-transparent">
                     {filteredDatasets.map((dataset) => (
-                      <tr key={dataset.id} className="border-b border-gray-800 hover:bg-gray-800/50">
+                      <tr key={dataset.id} className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <td className="py-3 px-4">
                           <input
                             type="checkbox"
                             checked={selectedDatasets.includes(dataset.id)}
                             onChange={() => toggleSelectDataset(dataset.id)}
-                            className="rounded border-gray-600"
+                            className="rounded border-gray-300 dark:border-gray-600"
                           />
                         </td>
                         <td className="py-3 px-4">
@@ -243,22 +243,22 @@ export default function DatasetsPage() {
                           href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300"
+                          className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                           >
                           {dataset.title}
                           </a>
 
                         </td>
-                        <td className="py-3 px-4 text-gray-400">{dataset.name}</td>
-                        <td className="py-3 px-4 text-gray-400 max-w-xs truncate">
+                        <td className="py-3 px-4 text-gray-600 dark:text-gray-400">{dataset.name}</td>
+                        <td className="py-3 px-4 text-gray-600 dark:text-gray-400 max-w-xs truncate">
                           {dataset.notes?.substring(0, 100) || 'No description'}
                         </td>
                         <td className="py-3 px-4">
                           <span
                             className={`inline-block px-2 py-1 rounded text-xs ${
                               dataset.private
-                                ? 'bg-yellow-500/20 text-yellow-500'
-                                : 'bg-green-500/20 text-green-500'
+                                ? 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-500'
+                                : 'bg-green-500/20 text-green-700 dark:text-green-500'
                             }`}
                           >
                             {dataset.private ? 'Private' : 'Public'}
@@ -269,17 +269,17 @@ export default function DatasetsPage() {
                             href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300"
+                            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                           >
                             {dataset.num_resources || 0} Resources
                           </a>
                         </td>
-                        <td className="py-3 px-4 text-gray-400">
+                        <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
                           <a
                             href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
+                            className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                           >
                             <Eye className="w-4 h-4" />
                             View Online
@@ -290,16 +290,16 @@ export default function DatasetsPage() {
                             onClick={() =>
                               setOpenActionMenu(openActionMenu === dataset.id ? null : dataset.id)
                             }
-                            className="p-2 hover:bg-gray-700 rounded"
+                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
                           >
                             <MoreVertical className="w-5 h-5" />
                           </button>
 
                           {openActionMenu === dataset.id && (
-                            <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-10">
+                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
                               <Link
                                 href={`/datasets/${dataset.name}/edit`}
-                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 text-sm"
+                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-gray-900 dark:text-white"
                               >
                                 <Edit className="w-4 h-4" />
                                 Edit
@@ -308,14 +308,14 @@ export default function DatasetsPage() {
                                 href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 text-sm"
+                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-gray-900 dark:text-white"
                               >
                                 <Database className="w-4 h-4" />
                                 Resources
                               </Link>
                               <button
                                 onClick={() => handleDelete(dataset.id, dataset.title)}
-                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 text-sm text-red-500 w-full text-left"
+                                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-red-600 dark:text-red-500 w-full text-left"
                               >
                                 <Trash2 className="w-4 h-4" />
                                 Delete

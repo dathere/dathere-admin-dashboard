@@ -119,7 +119,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
       
       <div className="lg:pl-72">
@@ -128,8 +128,8 @@ export default function DashboardPage() {
             <div className="space-y-8">
               {/* Header */}
               <div>
-                <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Dashboard</h1>
+                <p className="text-gray-600 dark:text-gray-400">
                   Welcome to datHere! Here's what's happening with your data portal today.
                 </p>
               </div>
@@ -138,14 +138,14 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Total Datasets */}
                 <Link href="/datasets" className="block">
-                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:bg-gray-700 transition-all cursor-pointer shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="bg-blue-500/10 p-3 rounded-lg">
                         <Database className="w-6 h-6 text-blue-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Total Datasets</p>
-                        <p className="text-3xl font-bold">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Total Datasets</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                           {loading ? '...' : stats.totalDatasets}
                         </p>
                       </div>
@@ -155,14 +155,14 @@ export default function DashboardPage() {
 
                 {/* Public Datasets */}
                 <Link href="/datasets" className="block">
-                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:bg-gray-700 transition-all cursor-pointer shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="bg-green-500/10 p-3 rounded-lg">
                         <TrendingUp className="w-6 h-6 text-green-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Public Datasets</p>
-                        <p className="text-3xl font-bold">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Public Datasets</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                           {loading ? '...' : stats.publicDatasets}
                         </p>
                       </div>
@@ -172,14 +172,14 @@ export default function DashboardPage() {
 
                 {/* Organizations */}
                 <Link href="/organizations" className="block">
-                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:bg-gray-700 transition-all cursor-pointer shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="bg-purple-500/10 p-3 rounded-lg">
-                        <Building2 className="w-6 h-6 text-purple-400" />
+                        <Building2 className="w-6 h-6 text-purple-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Organizations</p>
-                        <p className="text-3xl font-bold">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Organizations</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                           {loading ? '...' : stats.organizations}
                         </p>
                       </div>
@@ -189,14 +189,14 @@ export default function DashboardPage() {
 
                 {/* Groups */}
                 <Link href="/groups" className="block">
-                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:bg-gray-700 transition-all cursor-pointer shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="bg-cyan-500/10 p-3 rounded-lg">
-                        <Users className="w-6 h-6 text-cyan-400" />
+                        <Users className="w-6 h-6 text-cyan-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Groups</p>
-                        <p className="text-3xl font-bold">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Groups</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                           {loading ? '...' : stats.groups}
                         </p>
                       </div>
@@ -206,14 +206,14 @@ export default function DashboardPage() {
 
                 {/* Stories/Visualizations */}
                 <Link href="/stories" className="block">
-                  <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 hover:bg-gray-700 transition-colors cursor-pointer">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:bg-gray-700 transition-all cursor-pointer shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="bg-yellow-500/10 p-3 rounded-lg">
-                        <BarChart3 className="w-6 h-6 text-yellow-400" />
+                        <BarChart3 className="w-6 h-6 text-yellow-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Stories/Visualizations</p>
-                        <p className="text-3xl font-bold">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Stories/Visualizations</p>
+                        <p className="text-3xl font-bold text-gray-900 dark:text-white">
                           {loading ? '...' : stats.stories}
                         </p>
                       </div>
@@ -224,11 +224,11 @@ export default function DashboardPage() {
 
               {/* Quick Actions */}
               <div>
-                <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
+                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Quick Actions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Link
                     href="/datasets/create"
-                    className="bg-blue-600 hover:bg-blue-700 rounded-lg p-6 transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg p-6 transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <Database className="w-5 h-5" />
@@ -241,26 +241,26 @@ export default function DashboardPage() {
 
                   <Link
                     href="/datasets"
-                    className="bg-gray-800 hover:bg-gray-700 rounded-lg p-6 transition-colors"
+                    className="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-lg p-6 transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <Database className="w-5 h-5" />
                       <h3 className="font-semibold">Manage Datasets</h3>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       View and edit all datasets
                     </p>
                   </Link>
 
                   <Link
                     href="/users"
-                    className="bg-gray-800 hover:bg-gray-700 rounded-lg p-6 transition-colors"
+                    className="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-lg p-6 transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <Database className="w-5 h-5" />
                       <h3 className="font-semibold">Manage Users</h3>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Add or remove team members
                     </p>
                   </Link>
@@ -270,21 +270,21 @@ export default function DashboardPage() {
               {/* My Datasets Summary */}
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-semibold">My Datasets</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">My Datasets</h2>
                   <Link href="/datasets" className="text-blue-500 hover:text-blue-400 text-sm">
                     View all
                   </Link>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-blue-500/10 p-3 rounded-lg">
                       <Database className="w-6 h-6 text-blue-500" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl font-bold">{loading ? '...' : stats.totalDatasets}</span>
-                        <span className="text-gray-400">All</span>
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">{loading ? '...' : stats.totalDatasets}</span>
+                        <span className="text-gray-600 dark:text-gray-400">All</span>
                       </div>
                     </div>
                   </div>
@@ -293,45 +293,45 @@ export default function DashboardPage() {
 
               {/* Recent Activity */}
               <div>
-                <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Recent Activity</h2>
                 <div className="space-y-3">
                   {loading ? (
-                    <div className="bg-gray-800 rounded-lg p-4 text-center text-gray-400">
+                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center text-gray-600 dark:text-gray-400">
                       Loading recent datasets...
                     </div>
                   ) : stats.recentDatasets.length === 0 ? (
-                    <div className="bg-gray-800 rounded-lg p-4 text-center text-gray-400">
+                    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center text-gray-600 dark:text-gray-400">
                       No datasets yet. Create your first dataset!
                     </div>
                   ) : (
                     stats.recentDatasets.map((dataset) => (
                       <div
                         key={dataset.id}
-                        className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors"
+                        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       >
                         <div className="flex items-start gap-3">
                           <div className="bg-blue-500 rounded-full p-2 mt-1">
-                            <Database className="w-4 h-4" />
+                            <Database className="w-4 h-4 text-white" />
                           </div>
                           <div className="flex-1">
-                            <p className="font-medium mb-1">
+                            <p className="font-medium mb-1 text-gray-900 dark:text-white">
                               <a href={`${process.env.NEXT_PUBLIC_PORTALJS_URL}/@${dataset.organization?.name || 'portaljs'}/${dataset.name}`}
                               target="_blank"
                                rel="noopener noreferrer"
-                               className="hover:text-blue-400"
+                               className="hover:text-blue-500"
                                >
                                {dataset.title || dataset.name}
                                </a>
                               
                             </p>
-                            <p className="text-sm text-gray-400 mb-2">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                               {dataset.notes?.substring(0, 100) || 'No description'}
                               {dataset.notes?.length > 100 ? '...' : ''}
                             </p>
-                            <div className="flex items-center gap-4 text-xs text-gray-500">
+                            <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
                               <span>Last modified: {formatDate(dataset.metadata_modified)}</span>
                               <span>Resources: {dataset.resources?.length || 0}</span>
-                              <span className={dataset.private ? 'text-yellow-500' : 'text-green-500'}>
+                              <span className={dataset.private ? 'text-yellow-600 dark:text-yellow-500' : 'text-green-600 dark:text-green-500'}>
                                 {dataset.private ? 'Private' : 'Public'}
                               </span>
                             </div>

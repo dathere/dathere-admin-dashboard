@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { LogOut, User as UserIcon } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -54,15 +55,25 @@ export default function Sidebar() {
 
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-50 dark:bg-[#0a0f1e] px-6 border-r border-gray-200 dark:border-gray-800">
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-[#0a0f1e] px-6 border-r border-gray-200 dark:border-gray-800">
         {/* Logo */}
-        <Link href="/dashboard" className="flex items-center gap-3 mb-8 cursor-pointer hover:opacity-80 transition-opacity">
+        <Link href="/dashboard" className="flex items-center gap-3 my-6 cursor-pointer hover:opacity-80 transition-opacity">
+          <img 
+            src="/dathere-dashboard-light-logo.png" 
+            alt="datHere" 
+            className="h-12 w-auto block dark:hidden"
+          />
           <img 
             src="/dathere-dark-logo.png" 
             alt="datHere" 
-            className="h-8 w-auto"
+            className="h-12 w-auto hidden dark:block"
           />
         </Link>
+
+        {/* Theme Toggle */}
+        <div className="flex justify-end -mt-4 mb-2">
+          <ThemeToggle />
+        </div>
 
         {/* Navigation */}
         <nav className="flex flex-1 flex-col">
@@ -78,8 +89,8 @@ export default function Sidebar() {
                         className={`
                           group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
                           ${isActive
-                            ? 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-700 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                            ? 'bg-primary-50 dark:bg-gray-800 text-primary-600 dark:text-primary-400'
+                            : 'text-gray-700 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-800'
                           }
                         `}
                       >
@@ -96,9 +107,9 @@ export default function Sidebar() {
               <li className="mt-auto -mx-2">
                 <div className="border-t border-gray-200 dark:border-gray-800 pt-4 pb-2">
                   {/* User Info */}
-                  <Link href="/profile" className="px-2 py-2 mb-2 block hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors">
+                  <Link href="/profile" className="px-2 py-2 mb-2 block hover:bg-primary-50 dark:hover:bg-gray-800 rounded-md transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer">
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-primary-500 dark:bg-primary-600 flex items-center justify-center cursor-pointer">
                         <UserIcon className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -115,7 +126,7 @@ export default function Sidebar() {
                   {/* Logout Button */}
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="w-full flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <LogOut className="w-5 h-5" />
                     Logout
@@ -128,7 +139,7 @@ export default function Sidebar() {
                 <div className="border-t border-gray-200 dark:border-gray-800 pt-4 pb-2">
                   <Link
                     href="/login"
-                    className="flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="flex items-center gap-3 rounded-md p-2 text-sm font-semibold text-gray-700 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <UserIcon className="w-5 h-5" />
                     Login
