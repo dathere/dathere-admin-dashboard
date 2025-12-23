@@ -111,13 +111,13 @@ export default function EditUserPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
         <Sidebar />
         <div className="lg:pl-72">
           <main className="py-10 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-              <span className="ml-3 text-gray-400">Loading user data...</span>
+              <span className="ml-3 text-gray-600 dark:text-gray-400">Loading user data...</span>
             </div>
           </main>
         </div>
@@ -127,7 +127,7 @@ export default function EditUserPage() {
 
   if (error && !userData) {
     return (
-      <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
         <Sidebar />
         <div className="lg:pl-72">
           <main className="py-10 px-4 sm:px-6 lg:px-8">
@@ -137,7 +137,7 @@ export default function EditUserPage() {
               </div>
               <Link
                 href="/users"
-                className="inline-flex items-center text-blue-400 hover:text-blue-300 mt-4"
+                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-4"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Back to Users
@@ -150,7 +150,7 @@ export default function EditUserPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
 
       <div className="lg:pl-72">
@@ -160,60 +160,60 @@ export default function EditUserPage() {
             <div className="mb-8">
               <Link
                 href="/users"
-                className="inline-flex items-center text-gray-400 hover:text-white mb-4"
+                className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Back to Users
               </Link>
-              <h1 className="text-3xl font-bold">Edit User</h1>
-              <p className="text-gray-400 mt-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Edit User</h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">
                 Update user information and settings
               </p>
             </div>
 
             {/* User Info Card */}
             {userData && (
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-6">
-                <h2 className="text-xl font-semibold mb-4">User Information</h2>
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">User Information</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-400">Username</p>
-                    <p className="text-white font-medium">@{userData.name}</p>
+                    <p className="text-gray-600 dark:text-gray-400">Username</p>
+                    <p className="text-gray-900 dark:text-white font-medium">@{userData.name}</p>
                   </div>
                   <div>
-                    <p className="text-gray-400">Role</p>
-                    <p className="text-white font-medium">
+                    <p className="text-gray-600 dark:text-gray-400">Role</p>
+                    <p className="text-gray-900 dark:text-white font-medium">
                       {userData.sysadmin ? (
-                        <span className="text-yellow-400">Administrator</span>
+                        <span className="text-yellow-600 dark:text-yellow-400">Administrator</span>
                       ) : (
-                        <span className="text-blue-400">Member</span>
+                        <span className="text-blue-600 dark:text-blue-400">Member</span>
                       )}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
+                    <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                     <div>
-                      <p className="text-gray-400">Account Created</p>
-                      <p className="text-white">
+                      <p className="text-gray-600 dark:text-gray-400">Account Created</p>
+                      <p className="text-gray-900 dark:text-white">
                         {new Date(userData.created).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Package className="w-4 h-4 text-gray-400" />
+                    <Package className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                     <div>
-                      <p className="text-gray-400">Datasets Created</p>
-                      <p className="text-white">{userData.number_created_packages}</p>
+                      <p className="text-gray-600 dark:text-gray-400">Datasets Created</p>
+                      <p className="text-gray-900 dark:text-white">{userData.number_created_packages}</p>
                     </div>
                   </div>
                   <div>
-                    <p className="text-gray-400">Status</p>
-                    <p className="text-white">
+                    <p className="text-gray-600 dark:text-gray-400">Status</p>
+                    <p className="text-gray-900 dark:text-white">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           userData.state === 'active'
-                            ? 'bg-green-900/30 text-green-300 border border-green-800'
-                            : 'bg-red-900/30 text-red-300 border border-red-800'
+                            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-800'
+                            : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-800'
                         }`}
                       >
                         {userData.state}
@@ -222,8 +222,8 @@ export default function EditUserPage() {
                   </div>
                   {userData.last_active && (
                     <div>
-                      <p className="text-gray-400">Last Active</p>
-                      <p className="text-white">
+                      <p className="text-gray-600 dark:text-gray-400">Last Active</p>
+                      <p className="text-gray-900 dark:text-white">
                         {new Date(userData.last_active).toLocaleDateString()}
                       </p>
                     </div>
@@ -242,8 +242,8 @@ export default function EditUserPage() {
             {/* Edit Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information Card */}
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                   <User className="w-5 h-5" />
                   Basic Information
                 </h2>
@@ -251,7 +251,7 @@ export default function EditUserPage() {
                 <div className="space-y-4">
                   {/* Full Name */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                       Full Name
                     </label>
                     <input
@@ -260,13 +260,13 @@ export default function EditUserPage() {
                       value={formData.fullname}
                       onChange={handleChange}
                       placeholder="John Doe"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2 flex items-center gap-2">
                       <Mail className="w-4 h-4" />
                       Email
                     </label>
@@ -276,15 +276,15 @@ export default function EditUserPage() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="john@example.com"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Additional Information Card */}
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                   <FileText className="w-5 h-5" />
                   Additional Information
                 </h2>
@@ -292,7 +292,7 @@ export default function EditUserPage() {
                 <div className="space-y-4">
                   {/* About */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                       About
                     </label>
                     <textarea
@@ -301,7 +301,7 @@ export default function EditUserPage() {
                       onChange={handleChange}
                       rows={4}
                       placeholder="Brief description about the user..."
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export default function EditUserPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 dark:disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
                 >
                   {saving ? (
                     <>
@@ -328,7 +328,7 @@ export default function EditUserPage() {
                 </button>
                 <Link
                   href="/users"
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                  className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition-colors"
                 >
                   Cancel
                 </Link>

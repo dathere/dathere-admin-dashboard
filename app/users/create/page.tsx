@@ -87,7 +87,7 @@ export default function CreateUserPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
 
       <div className="lg:pl-72">
@@ -97,13 +97,13 @@ export default function CreateUserPage() {
             <div className="mb-8">
               <Link
                 href="/users"
-                className="inline-flex items-center text-gray-400 hover:text-white mb-4"
+                className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Back to Users
               </Link>
-              <h1 className="text-3xl font-bold">Create New User</h1>
-              <p className="text-gray-400 mt-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Create New User</h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">
                 Add a new user account to your data portal
               </p>
             </div>
@@ -118,8 +118,8 @@ export default function CreateUserPage() {
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information Card */}
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                   <User className="w-5 h-5" />
                   Basic Information
                 </h2>
@@ -127,7 +127,7 @@ export default function CreateUserPage() {
                 <div className="space-y-4">
                   {/* Username */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                       Username *
                     </label>
                     <input
@@ -137,16 +137,16 @@ export default function CreateUserPage() {
                       onChange={handleChange}
                       required
                       placeholder="johndoe"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                    <p className="mt-1 text-sm text-gray-400">
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                       Lowercase letters, numbers, hyphens, and underscores only
                     </p>
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2 flex items-center gap-2">
                       <Mail className="w-4 h-4" />
                       Email *
                     </label>
@@ -157,13 +157,13 @@ export default function CreateUserPage() {
                       onChange={handleChange}
                       required
                       placeholder="john@example.com"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   {/* Password */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2 flex items-center gap-2">
                       <Lock className="w-4 h-4" />
                       Password *
                     </label>
@@ -174,16 +174,16 @@ export default function CreateUserPage() {
                       onChange={handleChange}
                       required
                       placeholder="••••••••"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                    <p className="mt-1 text-sm text-gray-400">
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                       Minimum 8 characters
                     </p>
                   </div>
 
                   {/* Full Name */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                       Full Name
                     </label>
                     <input
@@ -192,15 +192,15 @@ export default function CreateUserPage() {
                       value={formData.fullname}
                       onChange={handleChange}
                       placeholder="John Doe"
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Additional Information Card */}
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                   <FileText className="w-5 h-5" />
                   Additional Information
                 </h2>
@@ -208,7 +208,7 @@ export default function CreateUserPage() {
                 <div className="space-y-4">
                   {/* About */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-gray-300 mb-2">
                       About
                     </label>
                     <textarea
@@ -217,7 +217,7 @@ export default function CreateUserPage() {
                       onChange={handleChange}
                       rows={4}
                       placeholder="Brief description about the user..."
-                      className="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -225,8 +225,8 @@ export default function CreateUserPage() {
 
               {/* Permissions Card - Commented out until authentication is implemented */}
               {/* 
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
                   <Shield className="w-5 h-5" />
                   Permissions
                 </h2>
@@ -238,13 +238,13 @@ export default function CreateUserPage() {
                     id="sysadmin"
                     checked={formData.sysadmin}
                     onChange={handleChange}
-                    className="w-4 h-4 text-blue-600 bg-gray-900 border-gray-700 rounded focus:ring-blue-500"
+                    className="w-4 h-4 text-blue-600 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded focus:ring-blue-500"
                   />
-                  <label htmlFor="sysadmin" className="text-sm font-medium text-gray-300">
+                  <label htmlFor="sysadmin" className="text-sm font-medium text-gray-900 dark:text-gray-300">
                     System Administrator
                   </label>
                 </div>
-                <p className="mt-2 text-sm text-gray-400 ml-7">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 ml-7">
                   Admins have full access to all datasets, organizations, and settings
                 </p>
               </div>
@@ -255,7 +255,7 @@ export default function CreateUserPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 dark:disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
                 >
                   {loading ? (
                     <>
@@ -271,7 +271,7 @@ export default function CreateUserPage() {
                 </button>
                 <Link
                   href="/users"
-                  className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                  className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition-colors"
                 >
                   Cancel
                 </Link>

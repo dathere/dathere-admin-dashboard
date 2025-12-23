@@ -61,13 +61,13 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
         <Sidebar />
         <div className="lg:pl-72">
           <main className="py-10 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-              <span className="ml-3 text-gray-400">Loading profile...</span>
+              <span className="ml-3 text-gray-600 dark:text-gray-400">Loading profile...</span>
             </div>
           </main>
         </div>
@@ -77,7 +77,7 @@ export default function ProfilePage() {
 
   if (error || !userData) {
     return (
-      <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
         <Sidebar />
         <div className="lg:pl-72">
           <main className="py-10 px-4 sm:px-6 lg:px-8">
@@ -93,7 +93,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0f1729]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0f1729]">
       <Sidebar />
 
       <div className="lg:pl-72">
@@ -103,15 +103,15 @@ export default function ProfilePage() {
             <div className="mb-8">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center text-gray-400 hover:text-white mb-4"
+                className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Back to Dashboard
               </Link>
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold">My Profile</h1>
-                  <p className="text-gray-400 mt-2">
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">My Profile</h1>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2">
                     View and manage your account information
                   </p>
                 </div>
@@ -126,7 +126,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Profile Card */}
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 mb-6">
               <div className="flex items-center gap-6 mb-6">
                 {/* Avatar */}
                 <div className="flex-shrink-0 h-24 w-24 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
@@ -139,18 +139,18 @@ export default function ProfilePage() {
 
                 {/* User Info */}
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-white mb-1">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                     {userData.fullname || userData.name}
                   </h2>
-                  <p className="text-gray-400 mb-2">@{userData.name}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-2">@{userData.name}</p>
                   <div className="flex items-center gap-2">
                     {userData.sysadmin ? (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-900/30 text-yellow-300 border border-yellow-800">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-800">
                         <Shield className="w-4 h-4 mr-1" />
                         Administrator
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-900/30 text-blue-300 border border-blue-800">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800">
                         <User className="w-4 h-4 mr-1" />
                         Member
                       </span>
@@ -158,8 +158,8 @@ export default function ProfilePage() {
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                         userData.state === 'active'
-                          ? 'bg-green-900/30 text-green-300 border border-green-800'
-                          : 'bg-red-900/30 text-red-300 border border-red-800'
+                          ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border border-green-300 dark:border-green-800'
+                          : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-800'
                       }`}
                     >
                       {userData.state}
@@ -170,27 +170,27 @@ export default function ProfilePage() {
 
               {/* About */}
               {userData.about && (
-                <div className="mb-6 pb-6 border-b border-gray-700">
-                  <h3 className="text-sm font-medium text-gray-400 mb-2">About</h3>
-                  <p className="text-white">{userData.about}</p>
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">About</h3>
+                  <p className="text-gray-900 dark:text-white">{userData.about}</p>
                 </div>
               )}
 
               {/* Details Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-gray-400 mt-1" />
+                  <Mail className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-1" />
                   <div>
-                    <p className="text-sm text-gray-400">Email</p>
-                    <p className="text-white font-medium">{userData.email}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
+                    <p className="text-gray-900 dark:text-white font-medium">{userData.email}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-gray-400 mt-1" />
+                  <Calendar className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-1" />
                   <div>
-                    <p className="text-sm text-gray-400">Member Since</p>
-                    <p className="text-white font-medium">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Member Since</p>
+                    <p className="text-gray-900 dark:text-white font-medium">
                       {new Date(userData.created).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
@@ -201,19 +201,19 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Package className="w-5 h-5 text-gray-400 mt-1" />
+                  <Package className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-1" />
                   <div>
-                    <p className="text-sm text-gray-400">Datasets Created</p>
-                    <p className="text-white font-medium">{userData.number_created_packages}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Datasets Created</p>
+                    <p className="text-gray-900 dark:text-white font-medium">{userData.number_created_packages}</p>
                   </div>
                 </div>
 
                 {userData.last_active && (
                   <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-gray-400 mt-1" />
+                    <Calendar className="w-5 h-5 text-gray-600 dark:text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-400">Last Active</p>
-                      <p className="text-white font-medium">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Last Active</p>
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {new Date(userData.last_active).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'long',
@@ -228,30 +228,30 @@ export default function ProfilePage() {
 
             {/* Account Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <Package className="w-5 h-5 text-blue-400" />
-                  <h3 className="text-sm font-medium text-gray-400">Total Datasets</h3>
+                  <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Datasets</h3>
                 </div>
-                <p className="text-3xl font-bold text-white">{userData.number_created_packages}</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white">{userData.number_created_packages}</p>
               </div>
 
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <Shield className="w-5 h-5 text-yellow-400" />
-                  <h3 className="text-sm font-medium text-gray-400">Role</h3>
+                  <Shield className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Role</h3>
                 </div>
-                <p className="text-xl font-bold text-white">
+                <p className="text-xl font-bold text-gray-900 dark:text-white">
                   {userData.sysadmin ? 'Administrator' : 'Member'}
                 </p>
               </div>
 
-              <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <User className="w-5 h-5 text-green-400" />
-                  <h3 className="text-sm font-medium text-gray-400">Status</h3>
+                  <User className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Status</h3>
                 </div>
-                <p className="text-xl font-bold text-white capitalize">{userData.state}</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-white capitalize">{userData.state}</p>
               </div>
             </div>
           </div>
