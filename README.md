@@ -91,10 +91,6 @@ CKAN API (Port 5050)
 PortalJS Portal (Port 3000 - optional)
 ```
 
-### Data Flow
-```
-Browser > Dashboard (React) > Next.js API Routes > CKAN API > PostgreSQL + Solr
-```
 
 ## Tech Stack
 
