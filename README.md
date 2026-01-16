@@ -141,7 +141,7 @@ See `COMPONENT_MAP.md` for detailed component locations.
 
 ## Workflow
 
-### With PortalJS (Recommended)
+### With PortalJS
 ```bash
 # Terminal 1: CKAN (Docker)
 docker start ckan-sandbox_ckan_sbx_1
@@ -155,49 +155,6 @@ cd ~/projects/dathere-admin-dashboard
 npm run dev  # http://localhost:3001
 ```
 
-**Workflow:**
-1. Create/edit datasets in Admin Dashboard (port 3001)
-2. View publicly in PortalJS Portal (port 3000)
-3. Stories are automatically available in both apps
-
-### Without PortalJS (Dashboard Only)
-```bash
-# Terminal 1: CKAN
-docker start ckan-sandbox_ckan_sbx_1
-
-# Terminal 2: Dashboard
-cd ~/projects/dathere-admin-dashboard
-npm run dev  # http://localhost:3001
-```
-
-## CKAN Setup
-
-### Get Docker Container IP
-```bash
-docker inspect YOUR_CKAN_CONTAINER | grep IPAddress
-```
-
-### Enable CORS
-```bash
-# Copy config out
-docker cp YOUR_CKAN_CONTAINER:/srv/app/ckan.ini ./ckan.ini
-
-# Edit ckan.ini and add:
-ckan.cors.origin_allow_all = true
-ckan.cors.origin_whitelist = http://localhost:3000 http://localhost:3001
-
-# Copy back
-docker cp ./ckan.ini YOUR_CKAN_CONTAINER:/srv/app/ckan.ini
-
-# Restart
-docker restart YOUR_CKAN_CONTAINER
-```
-
-### Increase File Upload Limit
-```bash
-# In ckan.ini, add or update:
-ckan.max_resource_size = 100  # MB
-```
 
 ## Key Features Explained
 
@@ -282,48 +239,16 @@ All API routes are in `app/api/`:
 
 ## Development
 
-### Running Tests
+### Start Development Server
 ```bash
-npm test
+npm run dev
 ```
 
-### Building for Production
+### Build for Production
 ```bash
 npm run build
 npm start
 ```
-
-### Type Checking
-```bash
-npm run type-check
-```
-
-### Linting
-```bash
-npm run lint
-```
-
-## Current Status
-
-**Working:**
-- Dataset CRUD operations
-- Multi-resource upload
-- Search and filtering
-- Organization/Group management
-- User management
-- Dashboard analytics
-- Story editor with 12 chart types
-- Dark/light theme
-- PortalJS integration
-- Activity streams
-
-**Planned:**
-- Per-user API tokens
-- Enhanced RBAC (role-based access control)
-- Batch operations
-- Advanced analytics
-- Image upload for stories
-- AI-generated metadata
 
 ## Contributing
 
